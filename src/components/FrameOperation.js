@@ -15,8 +15,8 @@ const required = (value) => {
 };
 
 class FrameOperation extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             name: '',
             code: '',
@@ -68,10 +68,8 @@ class FrameOperation extends Component {
             'Content-Type': 'multipart/form-data',
         }})
         .then(res => {
-            alert('Feedback Saved!!');
-            this.setState({
-                receiversList: []
-            });
+            alert('Frame Created!!');
+            this.props.history.push('/dashboard');
         })
         .catch((error) => {
             alert('error ' + error);

@@ -1,7 +1,25 @@
 import React, { Component } from 'react';
-import moment from 'moment';
+import axios from 'axios';
 
 class Dashboard extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+        }
+        this.deleteFrame = this.deleteFrame.bind(this);
+    }
+
+    deleteFrame(code){
+        axios.post(process.env.REACT_APP_API+'/api/deleteFrame', {code})
+        .then(res => {
+            alert('Frame Deleted!!');
+            location.reload();
+        })
+        .catch((error) => {
+            alert('error ' + error);
+        });
+    }
+
     render() {
         console.log(this.props.frames);
         return(
@@ -35,13 +53,10 @@ class Dashboard extends Component {
                         <td>{frame.Frame_Description	}</td>
                         <td><img src={frame.Frame_External_Link} /></td>
                         <td>
-                            <span className="frame-edit">
-                                <i className="fa fa-edit"></i>
-                            </span>
-                            <span className="frame-delete">
+                            <div onClick={()=>this.deleteFrame(frame.Frame_Code)} className="frame-delete">
                             {" "}
                                 <i className="fa fa-trash-o"></i>
-                            </span>
+                            </div>
                         </td>
                     </tr>
                  ))} 
